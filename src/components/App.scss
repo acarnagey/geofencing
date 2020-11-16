@@ -1,0 +1,16 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  .map-container {
+    width: 100%;
+  }
+  .form-container {
+    // background-color: yellow;
+    width: 400px;
+    padding: 1em;
+    > div, button {
+      margin-bottom: 1em;
+    }
+  }
+}
