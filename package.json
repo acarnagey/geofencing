@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/acarnagey/geofencing#readme",
   "devDependencies": {
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@types/mapbox-gl": "^1.12.8",
     "@types/webpack-dev-server": "^3.11.1",
     "css-loader": "^5.0.1",
     "dotenv-webpack": "^5.1.0",

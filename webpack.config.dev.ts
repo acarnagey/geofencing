@@ -21,6 +21,7 @@ const config: webpack.Configuration = {
     filename: "[name].js",
   },
   devServer: {
+    hot: true,
     port: 3001,
     // to get private IP addresses to work to test on emulators
     host: "0.0.0.0",
