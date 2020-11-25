@@ -1,6 +1,10 @@
 import DistanceUnitEnum from "../constants/DistanceUnitEnum";
 import GeoConstants from "../constants/GeoConstants";
 import GeoCoordinate from "../models/GeoCoordinate";
+// import * as jsts from "jsts";
+// import { geom, io } from "jsts";
+import * as turf from "@turf/turf";
+import { Feature, Point, Polygon } from "@turf/turf";
 
 class GeoUtil {
   public static distance(
@@ -50,6 +54,27 @@ class GeoUtil {
     }
 
     return geoCoordinates;
+  }
+
+  public static circleInPolygon(
+    geoFence: GeoCoordinate[],
+    geoCoord: GeoCoordinate,
+    radius: number
+  ) {
+    const poly1: Feature<Polygon> = turf.polygon([
+      geoFence.map((gc) => [gc.longitude, gc.latitude]),
+    ]);
+    const point: Feature<Point> = turf.point([
+      geoCoord.longitude,
+      geoCoord.latitude,
+    ]);
+    const poly2: Feature<Polygon> = turf.buffer(point, radius, {
+      units: "miles",
+    });
+    const isOverlapping = turf.booleanOverlap(poly1, poly2);
+    const isWithin = turf.booleanWithin(poly1, poly2);
+    const isContaining = turf.booleanContains(poly1, poly2);
+    return isOverlapping || isWithin || isContaining;
   }
 
   // ref: http://alienryderflex.com/polygon/

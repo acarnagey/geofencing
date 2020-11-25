@@ -81,10 +81,14 @@ export default class App extends Component<{}, AppState> {
       longitude: location.longitude,
     };
     let hasIntersection = false;
-    if(selectedAlgorithm === AlgorithmEnum.POINT_TO_POLYGON) {
-      hasIntersection = GeoUtil.pointInPolygon(
+    if (selectedAlgorithm === AlgorithmEnum.POINT_TO_POLYGON) {
+      hasIntersection = GeoUtil.pointInPolygon(geoCoordinates, serviceGeoCoord);
+    } else {
+      geoCoordinates.push(geoCoordinates[0]);
+      hasIntersection = GeoUtil.circleInPolygon(
         geoCoordinates,
-        serviceGeoCoord
+        serviceGeoCoord,
+        location.radiusInMiles
       );
     }
     this.setState({ showAlert: true, hasIntersection });
